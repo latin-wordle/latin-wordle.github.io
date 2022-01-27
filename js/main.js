@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         guessedWordCount += 1;
         console.log(currentWord);
         if (currentWord === word) {
-            window.alert("Congratulations!");
+            window.alert("Congratulations! You found the word! Refresh the page for a new word!");
         }
 
         if (guessedWords.length === 6) {
