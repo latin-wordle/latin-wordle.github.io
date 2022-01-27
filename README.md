@@ -1,0 +1,1 @@
+# latin-wordle.github.io
