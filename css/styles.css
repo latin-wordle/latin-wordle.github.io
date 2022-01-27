@@ -40,6 +40,16 @@ header {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
+.subtitle {
+    color: gainsboro;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0.4rem 0 0.4rem 0;
+    text-align: center;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
 #board-container {
     display: flex;
     justify-content: center;
