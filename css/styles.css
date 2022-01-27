@@ -67,7 +67,7 @@ header {
 }
 
 #hint {
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     flex-grow: 1;
