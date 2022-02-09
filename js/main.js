@@ -100,32 +100,31 @@ document.getElementById('numberOfLetters-select').addEventListener('change', fun
         const currentWordArr = getCurrentWordArr();
         if (parseInt(currentWordArr.length.toString()) !== parseInt(numberOfLetters.toString())) {
             window.alert("Word must be " + numberOfLetters.toString() + " letters");
-        } else {
-            const currentWord = currentWordArr.join("");
-            const firstLetterId = guessedWordCount * numberOfLetters + 1;
-            const interval = 200;
-            currentWordArr.forEach((letter, index) => {
-                setTimeout(() => {
-                    const tileColor = getTileColor(letter, index);
-
-                    const letterId = firstLetterId + index;
-                    const letterEl = document.getElementById(letterId);
-                    letterEl.classList.add("animate__flipInX");
-                    letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
-                }, interval * index);
-            });
-
-            guessedWordCount += 1;
-            if (currentWord.toLowerCase() === word.toLowerCase()) {
-                window.alert("Congratulations! You found the word! Refresh the page for a new word!");
-            }
-
-            if (guessedWords.length === numberOfLetters + 1) {
-                window.alert(`Sorry, you have no more guesses! The word is ${word}.`);
-            }
-
-            guessedWords.push([]);
         }
+        const currentWord = currentWordArr.join("");
+        const firstLetterId = guessedWordCount * numberOfLetters + 1;
+        const interval = 200;
+        currentWordArr.forEach((letter, index) => {
+            setTimeout(() => {
+                const tileColor = getTileColor(letter, index);
+
+                const letterId = firstLetterId + index;
+                const letterEl = document.getElementById(letterId);
+                letterEl.classList.add("animate__flipInX");
+                letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
+            }, interval * index);
+        });
+
+        guessedWordCount += 1;
+        if (currentWord.toLowerCase() === word.toLowerCase()) {
+            window.alert("Congratulations! You found the word! Refresh the page for a new word!");
+        }
+
+        if (guessedWords.length === 6) {
+            window.alert(`Sorry, you have no more guesses! The word is ${word}.`);
+        }
+
+        guessedWords.push([]);
     }
 
     function createSquares() {
@@ -139,9 +138,12 @@ document.getElementById('numberOfLetters-select').addEventListener('change', fun
             gameBoard.appendChild(square);
         }
     }
-
+    
     function handleDeleteLetter() {
-        guessedWords[guessedWords.length - 1] = getCurrentWordArr();
+        const currentWordArr = getCurrentWordArr();
+        const removedLetter = currentWordArr.pop();
+
+        guessedWords[guessedWords.length - 1] = currentWordArr;
 
         const lastLetterEl = document.getElementById(String(availableSpace - 1));
 
