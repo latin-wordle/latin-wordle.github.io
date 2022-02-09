@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+:root {
+  --numberOfSquares: 4;
+}
+
 html,
 body {
     height: 100%;
@@ -60,13 +64,13 @@ header {
 
 #board {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(var(--numberOfSquares), 1fr);
     grid-gap: 5px;
     padding: 10px;
     box-sizing: border-box;
 }
 
-#hint {
+#hint, #numberOfLetters {
     display: block;
     justify-content: center;
     align-items: center;

@@ -1,5 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
-    createSquares();
+// document.addEventListener("DOMContentLoaded", () => {
+document.getElementById('numberOfLetters-select').addEventListener('change', function () {
+    let numberOfLetters = 0;
+    updateNumberOfLetters(this.value);
 
     let guessedWords = [[]];
     let availableSpace = 1;
@@ -10,27 +12,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const keys = document.querySelectorAll(".keyboard-row button");
     getNewWord();
 
+    function updateNumberOfLetters(value) {
+        numberOfLetters = value;
+        document.querySelector(':root').style.setProperty('--numberOfSquares', numberOfLetters);
+        createSquares();
+        const div = document.getElementById('numberOfLetters')
+        div.innerHTML = numberOfLetters.toString() + " Letter Wordle";
+    }
+
     function getNewWord() {
-        let filePath = "assets/words2.txt";
+        let filePath = "assets/all_words/divided_words/" + numberOfLetters + ".txt";
         fetch(filePath)
             .then(response => response.text())
             .then(data => {
-                let lines = data.split("\r\n");
+                let lines = data.split("\n");
                 let words = [];
                 for (let i = 0; i < lines.length; i++) {
                     words.push(lines[i]);
                 }
-                // get a random word that is exactly 5 characters long
                 let randomWord = words[Math.floor(Math.random() * words.length)];
-                while (randomWord.length !== 5) {
-                    randomWord = words[Math.floor(Math.random() * words.length)];
-                }
-                word = randomWord;
+                word = randomWord.toLowerCase();
                 console.log(word);
             });
 
         // read the full text file(cloelia.txt) and find the line which contains the word, set that word to the hint paragraph
-        let filePath2 = "assets/cloelia2.txt";
+        /*let filePath2 = "assets/cloelia_words/cloelia2.txt";
         fetch(filePath2)
             .then(response => response.text())
             .then(data => {
@@ -38,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 for (let i = 0; i < lines.length; i++) {
                     lines[i] = lines[i].replaceAll("\r\n", " ");
                 }
-                console.log(lines);
+                // console.log(lines);
                 let hint = "";
                 for (let i = 0; i < lines.length; i++) {
                     if (lines[i].includes(word)) {
@@ -52,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     hint = "No hints found in the text. You can refresh the page for a new word.";
                 }
                 document.querySelector("#hint").innerHTML = hint;
-            });
+            });*/
     }
 
     function getCurrentWordArr() {
@@ -63,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateGuessedWords(letter) {
         const currentWordArr = getCurrentWordArr();
 
-        if (currentWordArr && currentWordArr.length < 5) {
+        if (currentWordArr && currentWordArr.length < numberOfLetters) {
             currentWordArr.push(letter);
 
             const availableSpaceEl = document.getElementById(String(availableSpace));
@@ -92,42 +98,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function handleSubmitWord() {
         const currentWordArr = getCurrentWordArr();
-        if (currentWordArr.length !== 5) {
-            window.alert("Word must be 5 letters");
+        if (parseInt(currentWordArr.length.toString()) !== parseInt(numberOfLetters.toString())) {
+            window.alert("Word must be " + numberOfLetters.toString() + " letters");
+        } else {
+            const currentWord = currentWordArr.join("");
+            const firstLetterId = guessedWordCount * numberOfLetters + 1;
+            const interval = 200;
+            currentWordArr.forEach((letter, index) => {
+                setTimeout(() => {
+                    const tileColor = getTileColor(letter, index);
+
+                    const letterId = firstLetterId + index;
+                    const letterEl = document.getElementById(letterId);
+                    letterEl.classList.add("animate__flipInX");
+                    letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
+                }, interval * index);
+            });
+
+            guessedWordCount += 1;
+            if (currentWord.toLowerCase() === word.toLowerCase()) {
+                window.alert("Congratulations! You found the word! Refresh the page for a new word!");
+            }
+
+            if (guessedWords.length === numberOfLetters + 1) {
+                window.alert(`Sorry, you have no more guesses! The word is ${word}.`);
+            }
+
+            guessedWords.push([]);
         }
-
-        const currentWord = currentWordArr.join("");
-
-        const firstLetterId = guessedWordCount * 5 + 1;
-        const interval = 200;
-        currentWordArr.forEach((letter, index) => {
-            setTimeout(() => {
-                const tileColor = getTileColor(letter, index);
-
-                const letterId = firstLetterId + index;
-                const letterEl = document.getElementById(letterId);
-                letterEl.classList.add("animate__flipInX");
-                letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
-            }, interval * index);
-        });
-
-        guessedWordCount += 1;
-        console.log(currentWord);
-        if (currentWord === word) {
-            window.alert("Congratulations! You found the word! Refresh the page for a new word!");
-        }
-
-        if (guessedWords.length === 6) {
-            window.alert(`Sorry, you have no more guesses! The word is ${word}.`);
-        }
-
-        guessedWords.push([]);
     }
 
     function createSquares() {
         const gameBoard = document.getElementById("board");
 
-        for (let index = 0; index < 30; index++) {
+        for (let index = 0; index < (6 * numberOfLetters); index++) {
             let square = document.createElement("div");
             square.classList.add("square");
             square.classList.add("animate__animated");
@@ -137,10 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function handleDeleteLetter() {
-        const currentWordArr = getCurrentWordArr();
-        const removedLetter = currentWordArr.pop();
-
-        guessedWords[guessedWords.length - 1] = currentWordArr;
+        guessedWords[guessedWords.length - 1] = getCurrentWordArr();
 
         const lastLetterEl = document.getElementById(String(availableSpace - 1));
 

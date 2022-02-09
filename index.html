@@ -1,49 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics
-    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PV6HTCVE5N"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    <script>function updateNumberOfLetters(value) {
+            document.getElementById("numberOfLetters").innerHTML = value;
+        } </script>
 
-      gtag('config', 'G-PV6HTCVE5N', {
-        'page_title': 'Homepage',
-         'page_location': 'index.html'
-      });
-    </script> -->
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id=%27+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-583QDJP');</script>
+    <script>
+
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        let f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l !== 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=%27+i+dl;f.parentNode.insertBefore(j,f)';
+    })(window, document, 'script', 'dataLayer', 'GTM-583QDJP');</script>
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Cloelia Wordle</title>
     <link rel="shortcut icon" type="image/jpg" href="assets/grumio.jpg"/>
-    <script src="js/main.js"></script>
     <link href="css/styles.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-583QDJP"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-583QDJP"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div id="container">
     <div id="game">
         <header>
             <h1 class="title">LATIN WORDLE</h1>
-       <!-- <h2 class="subtitle">Cloelia Edition!</h2> -->
+            <!-- <h2 class="subtitle">Cloelia Edition!</h2> -->
         </header>
 
-        <div id="hint">
+        <!--<div id="hint">
             <p>Hint: <span id="hint-text"></span></p>
+        </div>-->
+
+        <div id="numberOfLetters">
+            <p>Choose the number of letters for your wordle?</p>
+            <label for="numberOfLetters-select"></label><select
+                id="numberOfLetters-select"
+                onchange="updateNumberOfLetters(this.value
+                );">
+                <option value=""></option>
+                <option value="3">3 Letter Wordle</option>
+                <option value="4">4 Letter Wordle</option>
+                <option value="5">5 Letter Wordle</option>
+                <option value="6">6 Letter Wordle</option>
+                <option value="7">7 Letter Wordle</option>
+                <option value="8">8 Letter Wordle</option>
+                <option value="9">9 Letter Wordle</option>
+                <!--<option value="10">10 Letter Wordle</option>
+                <option value="11">11 Letter Wordle</option>
+                <option value="12">12 Letter Wordle</option>
+                <option value="13">13 Letter Wordle</option>
+                <option value="14">14 Letter Wordle</option>
+                <option value="15">15 Letter Wordle</option>
+                <option value="16">16 Letter Wordle</option>
+                <option value="17">17 Letter Wordle</option>
+                <option value="18">18 Letter Wordle</option>
+                <option value="19">19 Letter Wordle</option>
+                <option value="20">20 Letter Wordle</option>
+                <option value="21">21 Letter Wordle</option>
+                <option value="22">22 Letter Wordle</option>
+                <option value="23">23 Letter Wordle</option>
+                <option value="24">24 Letter Wordle</option>-->
+            </select>
         </div>
 
         <div id="board-container">
@@ -90,5 +122,6 @@
         </div>
     </div>
 </div>
+<script src="js/main.js"></script>
 </body>
 </html>
