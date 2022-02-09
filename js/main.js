@@ -100,6 +100,7 @@ document.getElementById('numberOfLetters-select').addEventListener('change', fun
         const currentWordArr = getCurrentWordArr();
         if (parseInt(currentWordArr.length.toString()) !== parseInt(numberOfLetters.toString())) {
             window.alert("Word must be " + numberOfLetters.toString() + " letters");
+            return;
         }
         const currentWord = currentWordArr.join("");
         const firstLetterId = guessedWordCount * numberOfLetters + 1;
