@@ -119,10 +119,12 @@ document.getElementById('numberOfLetters-select').addEventListener('change', fun
         guessedWordCount += 1;
         if (currentWord.toLowerCase() === word.toLowerCase()) {
             window.alert("Congratulations! You found the word! Refresh the page for a new word!");
+            return;
         }
 
         if (guessedWords.length === 6) {
             window.alert(`Sorry, you have no more guesses! The word is ${word}.`);
+            return;
         }
 
         guessedWords.push([]);
