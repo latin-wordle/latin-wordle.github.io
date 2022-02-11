@@ -1,5 +1,6 @@
 // document.addEventListener("DOMContentLoaded", () => {
 document.getElementById('numberOfLetters-select').addEventListener('change', function () {
+    console.log("v1.2");
     let numberOfLetters = 0;
     updateNumberOfLetters(this.value);
 
@@ -82,18 +83,16 @@ document.getElementById('numberOfLetters-select').addEventListener('change', fun
     function getTileColor(letter, index) {
         const isCorrectLetter = word.includes(letter);
 
-        if (!isCorrectLetter) {
-            return "rgb(58, 58, 60)";
-        }
-
         const letterInThatPosition = word.charAt(index);
         const isCorrectPosition = letter === letterInThatPosition;
 
         if (isCorrectPosition) {
             return "rgb(83, 141, 78)";
+        } else if (isCorrectPosition && isCorrectLetter) {
+            return "rgb(181, 159, 59)"
+        } else {
+            return "rgb(58, 58, 60)";
         }
-
-        return "rgb(181, 159, 59)";
     }
 
     function handleSubmitWord() {
