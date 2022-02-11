@@ -82,6 +82,12 @@ document.getElementById('numberOfLetters-select').addEventListener('change', fun
 
     function getTileColor(letter, index) {
         const isCorrectLetter = word.includes(letter);
+        const letterInThatPosition = word.charAt(index);
+        const isCorrectPosition = letter === letterInThatPosition;
+        
+        if (isCorrectPosition) {
+            return "rgb(83, 141, 78)"; // green
+        }
 
         let alreadyCorrectLetter = false;
 
@@ -91,16 +97,11 @@ document.getElementById('numberOfLetters-select').addEventListener('change', fun
             if (isCorrectPosition) {
                 alreadyCorrectLetter = true;
             } else if (alreadyCorrectLetter) {
-                return "rgb(181, 159, 59)"; 
+                return "rgb(58, 58, 60)"; 
             }
         }
 
-        const letterInThatPosition = word.charAt(index);
-        const isCorrectPosition = letter === letterInThatPosition;
-
-        if (isCorrectPosition) {
-            return "rgb(83, 141, 78)"; // green
-        } else if (!isCorrectPosition && isCorrectLetter) {
+        if (!isCorrectPosition && isCorrectLetter) {
             return "rgb(181, 159, 59)"; // yellow
         } else {
             return "rgb(58, 58, 60)"; // grey
