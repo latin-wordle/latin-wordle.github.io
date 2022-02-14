@@ -120,7 +120,13 @@ document.getElementById('numberOfLetters-select').addEventListener('change', fun
         currentWordArr.forEach((letter, index) => {
             setTimeout(() => {
                 const tileColor = getTileColor(letter, index);
-
+                var buttons = document.getElementsByTagName('button');
+                for (let i = 0; i < buttons.length; i++) {
+                    let button = buttons[i];
+                    if (button.innerHTML === letter) {
+                        button.style.backgroundColor = tileColor; 
+                    }
+                }
                 const letterId = firstLetterId + index;
                 const letterEl = document.getElementById(letterId);
                 letterEl.classList.add("animate__flipInX");
