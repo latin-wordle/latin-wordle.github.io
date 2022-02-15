@@ -1,6 +1,6 @@
 // document.addEventListener("DOMContentLoaded", () => {
 document.getElementById('numberOfLetters-select').addEventListener('change', function () {
-    console.log("v1.3");
+    console.log("v1.4");
     let numberOfLetters = 0;
     updateNumberOfLetters(this.value);
 
@@ -81,31 +81,45 @@ document.getElementById('numberOfLetters-select').addEventListener('change', fun
     }
 
     function getTileColor(letter, index) {
+        // const isCorrectLetter = word.includes(letter);
+        // const letterInThatPosition = word.charAt(index);
+        // const isCorrectPosition = letter === letterInThatPosition;
+        
+        // if (isCorrectPosition) {
+        //     return "rgb(83, 141, 78)"; // green
+        // }
+
+        // let alreadyCorrectLetter = false;
+
+        // for (let i = 0; i < word.length; i++) {
+        //     const letterInThatPosition = word.charAt(i);
+        //     const isCorrectPosition = letter === letterInThatPosition;
+        //     if (isCorrectPosition) {
+        //         alreadyCorrectLetter = true;
+        //     } else if (alreadyCorrectLetter) {
+        //         return "rgb(58, 58, 60)"; 
+        //     }
+        // }
+
+        // if (!isCorrectPosition && isCorrectLetter) {
+        //     return "rgb(181, 159, 59)"; // yellow
+        // } else {
+        //     return "rgb(58, 58, 60)"; // grey
+        // }
         const isCorrectLetter = word.includes(letter);
+
+        if (!isCorrectLetter) {
+            return "rgb(58, 58, 60)";
+        }
+
         const letterInThatPosition = word.charAt(index);
         const isCorrectPosition = letter === letterInThatPosition;
-        
+
         if (isCorrectPosition) {
-            return "rgb(83, 141, 78)"; // green
+            return "rgb(83, 141, 78)";
         }
 
-        let alreadyCorrectLetter = false;
-
-        for (let i = 0; i < word.length; i++) {
-            const letterInThatPosition = word.charAt(i);
-            const isCorrectPosition = letter === letterInThatPosition;
-            if (isCorrectPosition) {
-                alreadyCorrectLetter = true;
-            } else if (alreadyCorrectLetter) {
-                return "rgb(58, 58, 60)"; 
-            }
-        }
-
-        if (!isCorrectPosition && isCorrectLetter) {
-            return "rgb(181, 159, 59)"; // yellow
-        } else {
-            return "rgb(58, 58, 60)"; // grey
-        }
+        return "rgb(181, 159, 59)";
     }
 
     function handleSubmitWord() {
